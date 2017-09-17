@@ -7,18 +7,18 @@ Description
 
 The idea and algorithm was developed by I. Abnizova
 
-#### Launch
+### Launch
 
 Does not need to be installed. Unpack FTT-Windows-x64.zip, go to the FTT folder and and click on the file FTT.exe
 
-#### Documentation
+### Documentation
 A complete description of the algorithm and the user interface is in the compiled help FTT_help.chm in Help folder.
 The description of the user control is called when pressing F1 (focus should be on the control).
 
-#### Data samples
+### Data samples
 
 Two examples of short chromosomes and saved results for "Global" mode are in the folder "Samples".
 
-#### Requirements
+### Requirements
 
-Microsoft [.NET Framework 3.5.0] or higher. 
+Microsoft [.NET Framework 3.6.2] or higher. 
