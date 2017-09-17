@@ -16,4 +16,4 @@ The description of the user control is called when pressing *F1* (the control sh
 Example of three short chromosomes and saved results in the "Global" mode are in the folder *Samples* (included in the archive).
 
 ### Requirements
-Microsoft [.NET Framework 3.6.2](https://www.microsoft.com/en-us/download/details.aspx?id=21) or higher. 
+Microsoft [.NET Framework 3.5](https://www.microsoft.com/en-us/download/details.aspx?id=21) or higher. 
