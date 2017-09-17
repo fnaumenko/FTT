@@ -1,0 +1,19 @@
+D:\Документы - Пользователь\Prof\Visual Studio 2005\FTT\obj\Release\FTT.exe
+D:\Документы - Fedor\Visual Studio 2005\Projects\FTT\obj\Release\FTT.exe
+D:\Документы - Fedor\Visual Studio 2005\Projects\FTT\bin\Release\FTT.exe
+D:\Документы - Fedor\Visual Studio 2005\Projects\FTT\obj\Release\ResolveAssemblyReference.cache
+D:\Документы - Fedor\Visual Studio 2005\Projects\FTT\obj\Release\FTT.AboutForm.resources
+D:\Документы - Fedor\Visual Studio 2005\Projects\FTT\obj\Release\FTT.Graphic.resources
+D:\Документы - Fedor\Visual Studio 2005\Projects\FTT\obj\Release\FTT.MainForm.resources
+D:\Документы - Fedor\Visual Studio 2005\Projects\FTT\obj\Release\FTT.Properties.Resources.resources
+D:\Документы - Fedor\Visual Studio 2005\Projects\FTT\obj\Release\FTT.FulfilmentEventArgs.resources
+D:\Документы - Fedor\Visual Studio 2005\Projects\FTT\obj\Release\FTT.csproj.GenerateResource.Cache
+C:\Users\Fedor\Documents\Visual Studio 2005\Projects\FTT\obj\Release\FTT.exe
+C:\Users\Fedor\Documents\Visual Studio 2005\Projects\FTT\bin\Release\FTT.exe
+C:\Users\Fedor\Documents\Visual Studio 2005\Projects\FTT\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Fedor\Documents\Visual Studio 2005\Projects\FTT\obj\Release\FTT.AboutForm.resources
+C:\Users\Fedor\Documents\Visual Studio 2005\Projects\FTT\obj\Release\FTT.Graphic.resources
+C:\Users\Fedor\Documents\Visual Studio 2005\Projects\FTT\obj\Release\FTT.MainForm.resources
+C:\Users\Fedor\Documents\Visual Studio 2005\Projects\FTT\obj\Release\FTT.Properties.Resources.resources
+C:\Users\Fedor\Documents\Visual Studio 2005\Projects\FTT\obj\Release\FTT.FulfilmentEventArgs.resources
+C:\Users\Fedor\Documents\Visual Studio 2005\Projects\FTT\obj\Release\FTT.csproj.GenerateResource.Cache

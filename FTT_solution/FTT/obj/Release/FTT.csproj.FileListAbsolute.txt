@@ -1,0 +1,11 @@
+D:\Documents\Visual Studio 2010\Projects\FTT\FTT\bin\Release\FTT.exe.config
+D:\Documents\Visual Studio 2010\Projects\FTT\FTT\bin\Release\FTT.exe
+D:\Documents\Visual Studio 2010\Projects\FTT\FTT\bin\Release\Plot.dll
+D:\Documents\Visual Studio 2010\Projects\FTT\FTT\bin\Release\Plot.pdb
+D:\Documents\Visual Studio 2010\Projects\FTT\FTT\bin\Release\Plot.xml
+D:\Documents\Visual Studio 2010\Projects\FTT\FTT\obj\Release\FTT.AboutForm.resources
+D:\Documents\Visual Studio 2010\Projects\FTT\FTT\obj\Release\FTT.MainForm.resources
+D:\Documents\Visual Studio 2010\Projects\FTT\FTT\obj\Release\FTT.Properties.Resources.resources
+D:\Documents\Visual Studio 2010\Projects\FTT\FTT\obj\Release\FTT.csproj.GenerateResource.Cache
+D:\Documents\Visual Studio 2010\Projects\FTT\FTT\obj\Release\FTT.exe
+D:\Documents\Visual Studio 2010\Projects\FTT\FTT\obj\Release\FTT.csprojResolveAssemblyReference.cache

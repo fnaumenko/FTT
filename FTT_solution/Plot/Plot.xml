@@ -1,0 +1,1327 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Plot</name>
+    </assembly>
+    <members>
+        <member name="T:Plot.Plot">
+            <summary>
+            Provides methods for painting 2-dimensional graphs: 
+            function graph or histogram or bar chart.
+            </summary>
+        </member>
+        <member name="F:Plot.Plot.BORDER">
+            <summary>The default width of the external border.</summary>
+        </member>
+        <member name="F:Plot.Plot.TITLE_MARGIN">
+            <summary>The default distance between external border and title in pixels.</summary>
+        </member>
+        <member name="F:Plot.Plot.AXIS_MARGIN">
+            <summary>The default distance between values and axis line in pixels.</summary>
+        </member>
+        <member name="F:Plot.Plot.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Plot.Plot.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Plot.Plot.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Plot.Plot._legendHeight">
+            <summary>The hight of the legend area.</summary>
+        </member>
+        <member name="F:Plot.Plot._border">
+            <summary>The width of the external border.</summary>
+        </member>
+        <member name="F:Plot.Plot._titleMargin">
+            <summary>The distance between external border and title in pixels.</summary>
+        </member>
+        <member name="F:Plot.Plot._axisMargin">
+            <summary>The distance between values and axis line in pixels.</summary>
+        </member>
+        <member name="F:Plot.Plot._showLegend">
+            <summary>Keeps true if control border be drawed.</summary>
+        </member>
+        <member name="F:Plot.Plot._drawBorder">
+            <summary>Keeps true if control border be drawed.</summary>
+        </member>
+        <member name="F:Plot.Plot._limitsChanged">
+            <summary>Keeps true if the limits are change while drawing plot in 'immidiate' mode.</summary>
+        </member>
+        <member name="F:Plot.Plot._szChanged">
+            <summary>Keeps true if Plot size is changed.</summary>
+        </member>
+        <member name="F:Plot.Plot._size">
+            <summary>Current control size.</summary>
+            <remarks>Used to control width or height separate change.</remarks>
+        </member>
+        <member name="F:Plot.Plot.canvas">
+            <summary>Canvas control.</summary>
+        </member>
+        <member name="F:Plot.Plot._axes">
+            <summary>The 2-members array of Axis structures.</summary>
+        </member>
+        <member name="M:Plot.Plot.#ctor">
+            <summary>Initializes a new <see cref="T:Plot.Plot"/> 
+            in drawing mode <see cref="F:Plot.Modes.Graph"/> by default.</summary>
+            <remarks>
+            Initializing an object means initializing a new session.
+            <para>
+            During the session, titles, units of measurement and current axes limits are saved. 
+            When the new session is initialized, the axes limits are set to atomically determined.
+            </para>
+            <para>To visualize the updated frame and graphics area, 
+            use the <see cref="M:System.Windows.Forms.Control.Refresh"/> call.</para>
+            <para>A frame is an area containing titles, units of measure, axes units and legend.</para>
+            <para>A graphics area is an area containing graphics.</para>
+            </remarks>
+            <seealso cref="M:Plot.Plot.Init"/>
+            <seealso cref="M:Plot.Plot.Init(System.String,System.String)"/>
+            <seealso cref="M:Plot.Plot.Init(System.String,System.String,System.String,System.String)"/>
+        </member>
+        <member name="M:Plot.Plot.Init">
+            <summary>Cleans all data, graphics area and initializes a new session without axes titles and units of measure.</summary>
+            <remarks>
+            For the session, see the remarks on the <see cref="M:Plot.Plot.#ctor"/> constructor.
+            </remarks>
+            <seealso cref="M:Plot.Plot.Init(System.String,System.String)"/>
+            <seealso cref="M:Plot.Plot.Init(System.String,System.String,System.String,System.String)"/>
+        </member>
+        <member name="M:Plot.Plot.Init(System.String,System.String)">
+            <summary>Cleans all data, graphics area and initializes a new session with axes titles.</summary>
+            <param name="titleX">Horizontal axis title.</param>
+            <param name="titleY">Vertical axis title.</param>
+            <remarks>
+            The long vertical axis title is displayed vertically automatically.
+            <para>For the session, see the remarks on the <see cref="M:Plot.Plot.#ctor"/> constructor.</para>
+            </remarks>
+            <seealso cref="M:Plot.Plot.Init(System.String,System.String,System.String,System.String)"/>
+        </member>
+        <member name="M:Plot.Plot.Init(System.String,System.String,System.String,System.String)">
+            <summary>Cleans all data, graphics area and initializes a new session with axes titles and units of measure.</summary>
+            <param name="titleX">Horizontal axis title.</param>
+            <param name="titleY">Vertical axis title.</param>
+            <param name="unitX">Horizontal axis unit of measure.</param>
+            <param name="unitY">Vertical axis unit of measure.</param>
+            <remarks>
+            To indicate the units of measure containing a degree, such as a square meter, use 
+            a power delimiter character <c>^</c>, such as <c>m^2</c>.
+            <para>The long vertical axis title is displayed vertically automatically.</para>
+            <para>For the session, see the remarks on the <see cref="M:Plot.Plot.#ctor"/> constructor.</para>
+            </remarks>
+            <seealso cref="M:Plot.Plot.Init(System.String,System.String)"/>
+        </member>
+        <member name="M:Plot.Plot.ClearSettings">
+            <summary>Cleans the graphics data and area, frame and set limits to atomically determined.</summary>
+            <remarks>Does not clear axis titles, units of measure and limits.</remarks>
+        </member>
+        <member name="M:Plot.Plot.Clear">
+            <summary>Cleans the graphics data and area.</summary>
+            <remarks>The graphics area is cleaned immediately 
+            (no need to call <see cref="M:System.Windows.Forms.Control.Refresh"/>).</remarks>
+        </member>
+        <member name="M:Plot.Plot.Dispose">
+            <summary>Releases all resourses used by this <see cref="T:Plot.Plot"/>.</summary>
+        </member>
+        <member name="M:Plot.Plot.SetLimits(System.Single,System.Single,System.Single,System.Single)">
+            <summary>Sets the visible axis ranges (limits).</summary>
+            <param name="minX">The minimum horizontal visible value.</param>
+            <param name="maxX">The maximum horizontal visible value.</param>
+            <param name="minY">The minimum vertical visible value.</param>
+            <param name="maxY">The maximum vertical visible value.</param>
+            <exception cref="T:System.ArgumentException">Thrown when maximum visible value is 
+            equal or less then the minimum one.</exception>
+            <remarks>
+            By default, the limits are set automatically. 
+            This method allows to capture some or all of the limits.
+            <para>The captured limits are retained until the <see cref="M:Plot.Plot.SetAutoLimits"/> method is called.</para>
+            <para>In order to return a separate limit value to automatically determined one, 
+            the dedicated parameter <see cref="F:Plot.Limits.AutoLimit"/> is used.</para>
+            </remarks>
+        </member>
+        <member name="M:Plot.Plot.SetAutoLimits">
+            <summary>Forces the visible axis ranges (limits) to be set automatically.</summary>
+            <remarks>This method is similar to the <see cref="M:Plot.Plot.SetLimits(System.Single,System.Single,System.Single,System.Single)"/> method 
+            with all parameters equal to <see cref="F:Plot.Limits.AutoLimit"/>.</remarks>
+        </member>
+        <member name="M:Plot.Plot.SetFrame(System.Drawing.Graphics,System.Boolean)">
+            <summary>Sets frame size, axis values and locations.</summary>
+            <param name="g">The Graphics to draw on.</param>
+            <param name="isLimitsReset">True if the limits have been changed.</param>
+        </member>
+        <member name="M:Plot.Plot.DrawLegends(System.Drawing.Graphics)">
+            <summary>Draws curves legends if this is allowed.</summary>
+            <param name="g">The Graphics to draw on.</param>
+        </member>
+        <member name="M:Plot.Plot.DrawFrame(System.Drawing.Graphics)">
+            <summary>Draws captions and units.</summary>
+            <param name="g">The Graphics to draw on.</param>
+        </member>
+        <member name="M:Plot.Plot.DrawScreenSaver(System.String)">
+            <summary>Draws the waiting screen saver.</summary>
+            <param name="caption">The screen waiting caption.</param>
+            <remarks>Forces <c>OnPaint</c> method to draw waiting screen saver 
+            until the <see cref="M:Plot.Plot.DrawPlot(System.Drawing.PointF[])"/> method is called.</remarks>
+            <seealso cref="M:Plot.Plot.DrawScreenSaver"/>
+        </member>
+        <member name="M:Plot.Plot.DrawScreenSaver">
+            <summary>Draws the default waiting screen saver.</summary>
+            <remarks>See remarks to the <see cref="M:Plot.Plot.DrawScreenSaver(System.String)"/> method.</remarks>
+        </member>
+        <member name="M:Plot.Plot.DrawPlot(System.Drawing.PointF[])">
+            <summary>
+            Adds to the already painted and paints the points collection as a graph. 
+            </summary>
+            <param name="points">The collection of drawn points in the order in which they are displayed.</param>
+            <remarks>
+            <para>A points collection is painted by <see cref="T:System.Drawing.Pen"/> 
+            with a default <see cref="P:System.Drawing.Pen.Width"/> property (equals <c>1</c>).</para>
+            <para>A <see cref="T:System.Drawing.Color"/> of <see cref="T:System.Drawing.Pen"/> 
+            is choosed from 16 predefined colors. 
+            If number of painted collection is more then 16, the colors are repeated cyclically.</para>
+            <para>For more information about graph drawing and for an example see 
+            <see cref="M:Plot.Plot.DrawPlot(System.Drawing.PointF[],System.String,System.Drawing.Pen)"/>.</para>
+            </remarks>
+            <seealso cref="M:Plot.Plot.DrawPlot(System.Drawing.PointF[],System.String)"/>
+            <seealso cref="M:Plot.Plot.SetLimits(System.Single,System.Single,System.Single,System.Single)"/>
+        </member>
+        <member name="M:Plot.Plot.DrawPlot(System.Drawing.PointF[],System.String)">
+            <summary>
+            Adds to the already painted and paints the points collection as a graph, 
+            with the specified <paramref name="name"/>. 
+            </summary>
+            <param name="points">The collection of drawn points in the order in which they are displayed.</param>
+            <param name="name">The user name of the points collection, displayed as graph legend.</param>
+            <remarks>
+            <para>A points collection is painted by <see cref="T:System.Drawing.Pen"/> 
+            with a default <see cref="P:System.Drawing.Pen.Width"/> property (equals <c>1</c>).</para>
+            <para>A <see cref="T:System.Drawing.Color"/> of <see cref="T:System.Drawing.Pen"/> 
+            is choosed from 16 predefined colors. 
+            If number of painted collection is more then 16, the colors are repeated cyclically.</para>
+            <para>For more information about graph drawing and for an example see 
+            <see cref="M:Plot.Plot.DrawPlot(System.Drawing.PointF[],System.String,System.Drawing.Pen)"/>.</para>
+            </remarks>
+            <seealso cref="M:Plot.Plot.DrawPlot(System.Drawing.PointF[])"/>
+            <seealso cref="M:Plot.Plot.SetLimits(System.Single,System.Single,System.Single,System.Single)"/>
+        </member>
+        <member name="M:Plot.Plot.DrawPlot(System.Drawing.PointF[],System.String,System.Drawing.Pen)">
+            <summary>
+            Adds to the already painted and paints the points collection as a graph, 
+            with the specified <paramref name="name"/> and using <paramref name="pen"/>. 
+            </summary>
+            <param name="points">The collection of drawn points in the order in which they are displayed.</param>
+            <param name="name">The user name of the points collection, displayed as graph legend.</param>
+            <param name="pen">The <see cref="T:System.Drawing.Pen"/> used to paint a graph.</param>
+            <exception cref="T:System.ArgumentException">
+            Thrown when maximum limit value equals or less then minimum.</exception>
+            <remarks>
+            <para>A specified points collection is added to the build-in set 
+            and is painted over already included collections immediately 
+            There is no necessary to subtruct collection.
+            The set will be free by calling <see cref="M:Plot.Plot.Clear"/>.</para>
+            <para>Use <c>DrawPlot</c> with <see cref="M:Plot.Plot.SetLimits(System.Single,System.Single,System.Single,System.Single)"/> before 
+            for graphs compositing. 
+            If you paint a single graph, the limits sets automatically.</para>
+            </remarks>
+            <example>
+            <para>Next examples assumes that the instance of the 
+            <see cref="T:Plot.Plot"/> class has been created before.</para>
+            <para>The following code demonstrates how to draw a single histogram.</para>
+            <code>
+               graph.Mode = Plot.Modes.Histogram;
+               graph.Init(false, "labelX", "labelY");
+               graph.DrawPlot(coll);
+            </code>
+            <para>The following code demonstrates how to draw two graphs with different limits.</para>
+            <code>
+               graph.Init(true, "labelX", "labelY");
+               graph.SetLimits(
+                   Math.Min(coll_1.MinXValue, coll_2.MinXValue),
+                   Math.Max(coll_1.MaxXValue, coll_2.MaxXValue),
+                   Math.Min(coll_1.MinYValue, coll_2.MinYValue),
+                   Math.Max(coll_1.MaxYValue, coll_2.MaxYValue)
+               );
+               graph.DrawPlot(coll_1, "name1");
+               graph.DrawPlot(coll_2, "name2");
+            </code>
+            </example>
+            <seealso cref="M:Plot.Plot.DrawPlot(System.Drawing.PointF[])"/>
+            <seealso cref="M:Plot.Plot.DrawPlot(System.Drawing.PointF[],System.String)"/>
+            <seealso cref="M:Plot.Plot.SetLimits(System.Single,System.Single,System.Single,System.Single)"/>
+        </member>
+        <member name="M:Plot.Plot.DrawPlot(System.Drawing.PointF[],System.String,System.Drawing.Pen,System.Boolean,System.Byte)">
+            <summary>
+            Adds to the already painted and paints the points collection as a graph, 
+            with the specified <paramref name="name"/> and using <paramref name="pen"/>. 
+            </summary>
+            <param name="points">The collection of drawn points in the order in which they are displayed.</param>
+            <param name="name">The user name of the points collection, displayed as graph legend.</param>
+            <param name="pen">The <see cref="T:System.Drawing.Pen"/> used to paint a graph.</param>
+            <param name="redrawAll">True if the whole collection should be redrawn, 
+            otherwise only added points are painted.</param>
+            <param name="shift">The shift of chart bar on x coordinate. 
+            Is processing only for <see cref="F:Plot.Modes.BarChart"/> mode.</param>
+            <exception cref="T:System.ArgumentException">
+            Thrown when maximum limit value equals or less then minimum.</exception>
+            <remarks>
+            <para>The <paramref name="shift"/> allows to avoid full covering earlier bars 
+            for more latest. Combining the <c>Width</c> of <see cref="T:System.Drawing.Pen"/> and 
+            the <paramref name="shift"/> you can represent the charts more clearly.</para>
+            <para>For more information about graph drawing and for an example see 
+            <see cref="M:Plot.Plot.DrawPlot(System.Drawing.PointF[],System.String,System.Drawing.Pen)"/>.</para>
+            </remarks>
+            <seealso cref="M:Plot.Plot.DrawPlot(System.Drawing.PointF[])"/>
+            <seealso cref="M:Plot.Plot.DrawPlot(System.Drawing.PointF[],System.String)"/>
+        </member>
+        <member name="M:Plot.Plot.PlotPaint(System.Object,System.Windows.Forms.PaintEventArgs)">
+            <summary>Redraw plot.</summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="P:Plot.Plot.ShowLegend">
+            <summary>Gets or sets a value indicating whether the legends should be visible.</summary>
+            <remarks>Also corrects accordingly the height of legend.</remarks>
+        </member>
+        <member name="P:Plot.Plot.Mode">
+            <summary>Gets or sets the current drawing mode.</summary>
+            <value>The <see cref="T:Plot.Modes"/> enumeration.</value>
+            <remarks>The default value is <see cref="F:Plot.Modes.Graph"/>.</remarks>
+        </member>
+        <member name="P:Plot.Plot.PenWidth">
+            <summary>Gets or sets the default (inner) pen width to draw function graph.</summary>
+            <remarks>The default value is 1.</remarks>
+        </member>
+        <member name="P:Plot.Plot.ShowBorder">
+            <summary>Gets or sets a value indicating whether control should have a single border.</summary>
+            <remarks>It is independed from the <see cref="P:System.Windows.Forms.UserControl.BorderStyle"/> property.
+            Draws additional border in <see cref="F:System.Windows.Forms.Border3DStyle.Flat"/> style.</remarks>
+        </member>
+        <member name="P:Plot.Plot.IsSpline">
+            <summary>
+            Gets or sets a value indicating whether a cardinal spline should be performed.
+            </summary>
+            <remarks>It is processing only on <see cref="F:Plot.Modes.Graph"/> mode.
+             <para>The default value is <c>false</c>.</para>
+            </remarks>
+        </member>
+        <member name="P:Plot.Plot.IsXInteger">
+            <summary>Gets or sets a value indicating whether fractional horizontal ticks 
+            and grid lines should be suppressed in case of integral axis values.</summary>
+            <remarks>
+            Plot control splits the axis on the ticks or grid lines automatically,
+            avoiding too many and too little ticks.
+            This property allows to supress the fractional ticks or grid lines.
+            <para>The default value is <c>false</c>.</para>
+            </remarks>
+        </member>
+        <member name="P:Plot.Plot.IsYInteger">
+            <summary>Gets or sets a value indicating whether vertical horizontal ticks 
+            and grid lines should be suppressed in case of integral axis values.</summary>
+            <remarks>
+            Plot control splits the axis on the ticks or grid lines automatically,
+            avoiding too many and too little ticks.
+            This property allows to supress the fractional ticks or grid lines.
+            <para>The default value is <c>false</c>.</para>
+            </remarks>
+        </member>
+        <member name="P:Plot.Plot.MinXValue">
+            <summary>Gets the actual minimum horizontal visible value.</summary>
+            <seealso cref="M:Plot.Plot.SetLimits(System.Single,System.Single,System.Single,System.Single)"/>
+        </member>
+        <member name="P:Plot.Plot.MaxXValue">
+            <summary>Gets the actual maximum horizontal visible value.</summary>
+            <seealso cref="M:Plot.Plot.SetLimits(System.Single,System.Single,System.Single,System.Single)"/>
+        </member>
+        <member name="P:Plot.Plot.MinYValue">
+            <summary>Gets the actual minimum vertical visible value.</summary>
+            <seealso cref="M:Plot.Plot.SetLimits(System.Single,System.Single,System.Single,System.Single)"/>
+        </member>
+        <member name="P:Plot.Plot.MaxYValue">
+            <summary>Gets the actual maximum vertical visible value.</summary>
+            <seealso cref="M:Plot.Plot.SetLimits(System.Single,System.Single,System.Single,System.Single)"/>
+        </member>
+        <member name="P:Plot.Plot.TopPowerX">
+            <summary>
+            Gets or sets the minimum value of the exponent in normalized scientific notation,
+            at which the axis X value begins to be displayed in a normalized scientific notation.
+            </summary>
+            <example>While <c>TopPowerX</c> is set to 3, the number 200 is displayed as '200',
+             the number 2000 is displayed as '2x10^3' (with the small '3' above the '10').</example>
+            <remarks>
+            <para>If value is less then 1, it is ignored.</para>
+            <para>The default value is 3.</para>
+            </remarks>
+        </member>
+        <member name="P:Plot.Plot.LowPowerX">
+            <summary>
+            Gets or sets the maximum value of the exponent in normalized scientific notation,
+            at which the axis X value begins to be displayed in a normalized scientific notation.
+            </summary>
+            <example>While <c>LowPowerX</c> is set to -2, the number 0.2 is displayed as '0.2',
+             the number 0.02 is displayed as '2x10^-2' (with the small '-2' above the '10').</example>
+            <remarks>
+            <para>If value is more then -1, it is ignored.</para>
+            <para>The default value is -2.</para>
+            </remarks>
+        </member>
+        <member name="P:Plot.Plot.TopPowerY">
+            <summary>
+            Gets or sets the minimum value of the exponent in normalized scientific notation,
+            at which the axis Y value begins to be displayed in a normalized scientific notation.
+            </summary>
+            <example>See <see cref="P:Plot.Plot.TopPowerX"/> example.</example>
+            <remarks>
+            <para>If value is less then 1, it is ignored.</para>
+            <para>The default value is 3.</para>
+            </remarks>
+        </member>
+        <member name="P:Plot.Plot.LowPowerY">
+            <summary>Gets or sets the minimum value of power of vertical axis value wich are drawn 'as is' 
+            (without setting detailed power factor).</summary>
+            <remarks>
+            <example>See <see cref="P:Plot.Plot.TopPowerY"/> example.</example>
+            <para>If value is more then -1, it is ignored.</para>
+            <para>The default value is -2.</para>
+            </remarks>
+        </member>
+        <member name="P:Plot.Plot.TitleMargin">
+            <summary>Gets or sets the distance in pixels between border and title.</summary>
+            <remarks>The default value is 1.</remarks>
+        </member>
+        <member name="P:Plot.Plot.ValueMargin">
+            <summary>Gets or sets the distance in pixels between title and axis values.</summary>
+            <remarks>The default value is 5.</remarks>
+        </member>
+        <member name="P:Plot.Plot.AxisMargin">
+            <summary>Gets or sets the distance in pixels between axis values and axis line.</summary>
+            <remarks>The default value is 3.</remarks>
+        </member>
+        <member name="P:Plot.Plot.ExtMargin">
+            <summary>Gets or sets the distance between Plot border and client area border in any dimension.</summary>
+            <remarks>The default value is 5.</remarks>
+        </member>
+        <member name="P:Plot.Plot.LegendMargin">
+            <summary>Gets or sets the  width of the border surrounding the name of the curve (legend) in pixels.</summary>
+        </member>
+        <member name="P:Plot.Plot.ShowGrid">
+            <summary>Sets the value indicating whether grid lines should be visible.</summary>
+            <remarks>Invalidates the canvas.</remarks>
+        </member>
+        <member name="T:Plot.Canvas">
+            <summary>Encapsulates a plot drawing surface.</summary>
+        </member>
+        <member name="F:Plot.Canvas.TICK_MARK_HIGHT">
+            <summary>The length of the scale marker in pixels.</summary>
+        </member>
+        <member name="F:Plot.Canvas._Caption">
+            <summary>The default caption of waiting screen saver.</summary>
+        </member>
+        <member name="F:Plot.Canvas._permitLimX">
+            <summary>The limit change permissions for axis X.</summary>
+        </member>
+        <member name="F:Plot.Canvas._permitLimY">
+            <summary>The limit change permissions for axis Y.</summary>
+        </member>
+        <member name="F:Plot.Canvas._isSpline">
+            <summary>Keeps true if a cardinal spline is performed.</summary>
+        </member>
+        <member name="F:Plot.Canvas._screenSaver">
+            <summary>Keeps true if screen saver caption should be drawn.</summary>
+        </member>
+        <member name="F:Plot.Canvas._legendHeight">
+            <summary>The hight of the legend area.</summary>
+        </member>
+        <member name="F:Plot.Canvas._caption">
+            <summary>The current caption of waiting screen saver.</summary>
+        </member>
+        <member name="F:Plot.Canvas._markingX">
+            <summary>X axis marking.</summary>
+        </member>
+        <member name="F:Plot.Canvas._markingY">
+            <summary>Y axis marking.</summary>
+        </member>
+        <member name="F:Plot.Canvas._mode">
+            <summary>The current drawing mode.</summary>
+        </member>
+        <member name="F:Plot.Canvas._curves">
+            <summary>The collection of curves.</summary>
+        </member>
+        <member name="M:Plot.Canvas.#ctor(Plot.Marking,Plot.Marking)">
+            <summary>Initializes a new instance of the <see cref="T:Plot.Canvas"/> class.</summary>
+            <param name="markingX">Axis X marking.</param>
+            <param name="markingY">Axis Y marking.</param>
+        </member>
+        <member name="M:Plot.Canvas.Clear">
+            <summary>Removes all lines and clears the drawing surface.</summary>
+        </member>
+        <member name="M:Plot.Canvas.SetAutoLimits">
+            <summary>Reset axes limits to atomically determined.</summary>
+        </member>
+        <member name="M:Plot.Canvas.Dispose">
+            <summary>Releases all resourses used by this Canvas.</summary>
+        </member>
+        <member name="M:Plot.Canvas.SetLimits(System.Single,System.Single,System.Single,System.Single,System.Boolean)">
+            <summary>Sets limits: the visible ranges.</summary>
+            <param name="minXVal">The new minimum visible X value, or Limits.AutoLimit.</param>
+            <param name="maxXVal">The new maximum visible X value, or Limits.AutoLimit.</param>
+            <param name="minYVal">The new minimum visible Y value, or Limits.AutoLimit.</param>
+            <param name="maxYVal">The new maximum visible Y value, or Limits.AutoLimit.</param>
+            <param name="allowSetLim">True if limits are allowed to change.</param>
+            <returns>True if all limits are defined and even one have been reset.</returns>
+        </member>
+        <member name="M:Plot.Canvas.AddCurve(System.Drawing.Graphics,System.Drawing.PointF[],System.String,System.Drawing.Pen,System.Byte)">
+            <summary>Creates the new instance of Curve and adds it the the curve's collection.</summary>
+            <param name="g">The Graphics to measure the name size.</param>
+            <param name="points">The drawing array of PontF.</param>
+            <param name="name">The name of curve.</param>
+            <param name="pen">The pen to draw curve.</param>
+            <param name="shift">The length of area in pixels which is outside</param>
+            <returns>True if limits have been reset.</returns>
+        </member>
+        <member name="M:Plot.Canvas.UpdateLegendHeight">
+            <summary>Sets the actual height of legends area.</summary>
+            <returns>The height of legends area updated to the current Canvas width.</returns>
+        </member>
+        <member name="M:Plot.Canvas.DrawGrid">
+            <summary>Draws the grid lines.</summary>
+        </member>
+        <member name="M:Plot.Canvas.DrawGrid(System.Drawing.Graphics)">
+            <summary>Draws the grid lines.</summary>
+            <param name="g">The Graphics to draw on.</param>
+        </member>
+        <member name="M:Plot.Canvas.DrawScreenSaver(System.String)">
+            <summary>Draws the waiting screen saver.</summary>
+            <param name="caption">The screen waiting caption. If null, then the default caption is used.</param>
+            <remarks>Forces <c>OnPaint</c> method to draw waiting screen saver 
+            until the <see cref="M:Plot.Canvas.DrawCurve(System.Drawing.Graphics,Plot.Canvas.Curves.Curve)"/> method is called.</remarks>
+        </member>
+        <member name="M:Plot.Canvas.DrawLegends(System.Drawing.Graphics,System.Int32)">
+            <summary>Draws curves legends.</summary>
+            <param name="g">The Graphics to draw on.</param>
+            <param name="x">The initial X coordinate in graphics context.</param>
+        </member>
+        <member name="M:Plot.Canvas.DrawCurve(System.Drawing.Graphics,Plot.Canvas.Curves.Curve)">
+            <summary>Draws curve on the specified transformed graphics surface.</summary>
+             <param name="g">The Graphics to draw on.</param>
+             <param name="curve">The Plot.Curve to draw.</param>
+        </member>
+        <member name="M:Plot.Canvas.DrawLastCurve">
+            <summary>Draws the last added curve separately.</summary>
+        </member>
+        <member name="M:Plot.Canvas.CanvasPaint(System.Object,System.Windows.Forms.PaintEventArgs)">
+            <summary>Redraw Graphic.</summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Plot.Canvas.WndProc(System.Windows.Forms.Message@)">
+            <summary>
+            Changes the message from WM_NCHITTEST to HTTRANSPARENT,
+            making the Control transparent to mouse events.
+            </summary>
+            <param name="m">Changed message.</param>
+            <remarks>If parent control of Plot establishes some mouse event on Plot,
+            it should be passed to Plot</remarks>
+        </member>
+        <member name="F:Plot.Canvas.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Plot.Canvas.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Plot.Canvas.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Plot.Canvas.IsNotEmpty">
+            <summary>Gets true if at list one curve is added.</summary>
+        </member>
+        <member name="P:Plot.Canvas.Mode">
+            <summary>Gets or sets the current drawing mode.</summary>
+        </member>
+        <member name="P:Plot.Canvas.IsSpline">
+            <summary>
+            Gets or sets a value indicating whether a cardinal spline 
+            should be performed.
+            </summary>
+            <remarks>Proccessing only on <see cref="F:Plot.Modes.Graph"/> mode.
+             <para>The default value is <c>false</c>.</para>
+            </remarks>
+        </member>
+        <member name="P:Plot.Canvas.PenWidth">
+            <summary>Gets or sets the default (inner) pen width to draw function graph.</summary>
+            <remarks>The default value is 1.</remarks>
+        </member>
+        <member name="P:Plot.Canvas.LegendMargin">
+            <summary>Gets or sets the width of the border surrounding the name of the curve (legend) in pixels.</summary>
+        </member>
+        <member name="P:Plot.Canvas.LegendHeight">
+            <summary>Gets the height of legends area.</summary>
+        </member>
+        <member name="P:Plot.Canvas.IsGridVisible">
+            <summary>Gets or sets a value indicated whether the grid lines are painted.</summary>
+        </member>
+        <member name="T:Plot.Canvas.SaverCaption">
+            <summary>Keeps screen saver caption, including Draw() method.</summary>
+        </member>
+        <member name="M:Plot.Canvas.SaverCaption.Dispose">
+            <summary>Releases static resourses used by SaverCaption.</summary>
+        </member>
+        <member name="F:Plot.Canvas.SaverCaption._caption">
+            <summary>The current caption of waiting screen saver.</summary>
+        </member>
+        <member name="F:Plot.Canvas.SaverCaption._width">
+            <summary>The width of the current caption string.</summary>
+        </member>
+        <member name="F:Plot.Canvas.SaverCaption._height">
+            <summary>The height of the current caption string.</summary>
+        </member>
+        <member name="M:Plot.Canvas.SaverCaption.#ctor(System.String)">
+            <summary>Creates an instance by caption string.</summary>
+            <param name="caption">The new screen saver caption.</param>
+        </member>
+        <member name="M:Plot.Canvas.SaverCaption.Init(System.Drawing.Graphics)">
+            <summary>Sets the size of instance.</summary>
+            <param name="g">Graphics to measure the size.</param>
+        </member>
+        <member name="M:Plot.Canvas.SaverCaption.Draw(System.Drawing.Graphics,System.Int32,System.Int32)">
+            <summary>Draws an instance.</summary>
+            <param name="g">Graphics to draw on.</param>
+            <param name="screenWidth">The width of graphic context.</param>
+            <param name="screenHeight">The height of graphic context.</param>
+        </member>
+        <member name="P:Plot.Canvas.SaverCaption.IsUninit">
+            <summary>Returns true if this instance is still not initialized.</summary>
+        </member>
+        <member name="T:Plot.Canvas.SaverCaption.CaptionFont">
+            <summary>The singleton holder of static caption font, ensuring its disposal.</summary>
+        </member>
+        <member name="M:Plot.Canvas.SaverCaption.CaptionFont.Dispose">
+            <summary>Releases Caption font.</summary>
+        </member>
+        <member name="M:Plot.Canvas.SaverCaption.CaptionFont.DisposeInstance">
+            <summary>Releases static resourses used by SaverCaption.</summary>
+        </member>
+        <member name="P:Plot.Canvas.SaverCaption.CaptionFont.Instance">
+            <summary>Gets or sets the singleton instance.</summary>
+        </member>
+        <member name="P:Plot.Canvas.SaverCaption.CaptionFont.Font">
+            <summary>Gets the caption font.</summary>
+        </member>
+        <member name="T:Plot.Canvas.Curves">
+            <summary>Implements Curve and Curves collection.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves.colors">
+            <summary>The set of predifined colors.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves._minXVal">
+            <summary>The minimum X value among the curves.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves._maxXVal">
+            <summary>The maximum X value among the curves.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves._minYVal">
+            <summary>The minimum Y value among the curves.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves._maxYVal">
+            <summary>The maximum Y value among the curves.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves._isOwnPen">
+            <summary>True if used inner pen.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves._legendMargin">
+            <summary>The width of the border surrounding the name of the curve (legend) in pixels.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves._penWidth">
+            <summary>The width of default pen.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves._curves">
+            <summary>The list of curves.</summary>
+        </member>
+        <member name="M:Plot.Canvas.Curves.ClearCurves">
+            <summary>Disposes curves resourses.</summary>
+        </member>
+        <member name="M:Plot.Canvas.Curves.GetVal(System.Single,System.Single)">
+            <summary>Gets defined min/max value or Plot undefined constant.</summary>
+            <param name="val">The value.</param>
+            <param name="undefVal">The internal undefined constant.</param>
+            <returns>The value or the Plot undefined constant.</returns>
+        </member>
+        <member name="M:Plot.Canvas.Curves.GetEnumerator">
+            <summary>To use foreach operator.</summary>
+            <returns></returns>
+        </member>
+        <member name="M:Plot.Canvas.Curves.AddCurve(System.Drawing.PointF[],System.String,System.Drawing.Pen,System.Int16,System.Byte)">
+            <summary>Creates the new instance of Curve and adds it the the curve's collection.</summary>
+            <param name="points">The drawing array of PontF.</param>
+            <param name="name">The curve name.</param>
+            <param name="pen">The pen to draw curve.</param>
+            <param name="nameWidth">The width of curve name</param>
+            <param name="shift">The length of area in pixels which is outside</param>
+            <returns>The index in the curve's collection at which the curve has been added.</returns>
+        </member>
+        <member name="M:Plot.Canvas.Curves.Clear">
+            <summary>Clears the curve's collection.</summary>
+        </member>
+        <member name="M:Plot.Canvas.Curves.GetLegendsHeight(System.Int32,System.Int32)">
+            <summary>Returns legends area height.</summary>
+            <param name="fontHeight">Font height to measure.</param>
+            <param name="areaWidth">The width of legend area.</param>
+            <returns>The height of legends area.</returns>
+        </member>
+        <member name="M:Plot.Canvas.Curves.DrawLegends(System.Drawing.Graphics,System.Drawing.Font,System.Int32,System.Int32)">
+            <summary>Draws curves legends.</summary>
+            <param name="g">The Graphics to draw on.</param>
+            <param name="font">The Font to draw on</param>
+            <param name="areatWidth">The width of legend area.</param>
+            <param name="x">The initial X coordinate in graphics context.</param>
+        </member>
+        <member name="P:Plot.Canvas.Curves.Count">
+            <summary>Gets the number of curves contained in the curve's collection.</summary>
+        </member>
+        <member name="P:Plot.Canvas.Curves.LegendMargin">
+            <summary>Gets or sets the  width of the border surrounding the name of the curve (legend) in pixels.</summary>
+        </member>
+        <member name="P:Plot.Canvas.Curves.PenWidth">
+            <summary>Gets or sets the default (inner) pen width to draw function graph.</summary>
+            <remarks>The default value is 1.</remarks>
+        </member>
+        <member name="T:Plot.Canvas.Curves.Curve">
+            <summary>Represents the array of coordinates, the name and the drawing Pen.</summary>
+            <remarks>
+            Coordinates are defined in the world coordinate context (in a nonphysical environment).
+            </remarks>
+        </member>
+        <member name="F:Plot.Canvas.Curves.Curve.MinXVal">
+            <summary>The minimum Curve X value.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves.Curve.MaxXVal">
+            <summary>The maximum Curve X value.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves.Curve.MinYVal">
+            <summary>The minimum Curve Y value.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves.Curve.MaxYVal">
+            <summary>The maximum Curve Y value.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves.Curve.Pen">
+            <summary>The pen of the Curve.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves.Curve.Brush">
+            <summary>The brush of the Curve.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves.Curve.Name">
+            <summary>The Curve user name.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves.Curve.NameWidth">
+            <summary>The width of Curve user name.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves.Curve.Shift">
+            <summary>The shift of histogram bar on x coordinate.</summary>
+        </member>
+        <member name="F:Plot.Canvas.Curves.Curve.Pts">
+            <summary>The array of the world coordinates.</summary>
+        </member>
+        <member name="M:Plot.Canvas.Curves.Curve.#ctor(System.Drawing.PointF[],System.String,System.Drawing.Pen,System.Int16,System.Int32)">
+            <summary>Initializes a new instance of the Curve structure.</summary>
+            <param name="pts">The array of points represented the curve. Each point keeps he world coordinate.</param>
+            <param name="name">The user name of the new Curve.</param>
+            <param name="pen">The Pen of the new curve.</param>
+            <param name="nameWidth">The width of curve name</param>
+            <param name="shift">The gorizontal shift of histogram bar.</param>
+        </member>
+        <member name="M:Plot.Canvas.Curves.Curve.Clear(System.Boolean)">
+            <summary>Disposes curve resourses.</summary>
+            <param name="clearPen">True if if pen holder is a collection (not user),
+            and the pen should be disposed.</param>
+        </member>
+        <member name="T:Plot.Marking">
+            <summary>Represents axis marking, including DrawGridLines method.</summary>
+        </member>
+        <member name="F:Plot.Marking._gridZeroPen">
+            <summary>The pen to draw zero grid line.</summary>
+        </member>
+        <member name="M:Plot.Marking.Division(System.Single,System.Boolean,System.Boolean)">
+            <summary>Gets the scale increment of the grid value.</summary>
+            <param name="maxValue">The maximum value.</param>
+            <param name="isInteger">True if value is integer.</param>
+            <param name="isPowerZero">True if power value equal zero.</param>
+            <returns>The number of user units between y scale ticks.</returns>
+        </member>
+        <member name="M:Plot.Marking.GetRangeVal(System.Single,System.Single[0:,0:])">
+            <summary>
+            Gets the range of value - a number of value's units between next grid line.
+            </summary>
+            <param name="val">The estimated value.</param>
+            <param name="rangs">The array of amounts of user units between grid lines for each relevant max value.</param>
+            <returns>The proper number of user units between scale ticks.</returns>
+        </member>
+        <member name="F:Plot.Marking._isInteger">
+            <summary>Keeps the sign of integer values.</summary>
+        </member>
+        <member name="F:Plot.Marking._cntDivisions">
+            <summary>The number of divisions - visible areas between neighboring tick marks.</summary>
+        </member>
+        <member name="F:Plot.Marking._zeroTickInd">
+            <summary>The index of tick with 0 value, or -1 if no such values.</summary>
+        </member>
+        <member name="F:Plot.Marking._resolution">
+            <summary>The number of pixels between tick marks. Used in DrawGridLines().</summary>
+        </member>
+        <member name="F:Plot.Marking._scale">
+            <summary>The number of pixels in one unit of measure.</summary>
+        </member>
+        <member name="F:Plot.Marking._increment">
+            <summary>The number of units in one scale mark.</summary>
+        </member>
+        <member name="F:Plot.Marking._unitShift">
+            <summary>The number of units which are outside of the visible area.</summary>
+        </member>
+        <member name="F:Plot.Marking._minVal">
+            <summary>The minimum visible value.</summary>
+        </member>
+        <member name="F:Plot.Marking._maxVal">
+            <summary>The maximum visible value.</summary>
+        </member>
+        <member name="M:Plot.Marking.Clear">
+            <summary>Clears this Marking.</summary>
+        </member>
+        <member name="M:Plot.Marking.GetValue(System.Byte,System.Int16,System.Int16)">
+            <summary>
+            Gets the string representation of axis value by its index and power base,
+            and sets zero value's tick index.
+            </summary>
+            <param name="axisInd">The indx of axis: 0 - X, 1 - Y.</param>
+            <param name="i">The index of axis value.</param>
+            <param name="power">Decimal power of axis value.</param>
+            <returns>The string representation of the value or its power base.</returns>
+        </member>
+        <member name="M:Plot.Marking.RangeRoundUp(System.Int16@)">
+            <summary>Rounds up the range of axis values.</summary>
+            <param name="power">The returned power of number.</param>
+            <returns>The base of rounded range without power.</returns>
+            <remarks>
+            The range is rounded up for half of base unit for float values, 
+            or for one base unit for integer values.
+            <para>If the range is exactly equal to rounded one, it is increased by 
+            half of base unit for float values, or for one base unit for integer values.</para>
+            <para>Thus the degenerate range (equal to zero) will always expand.</para>
+            </remarks>
+            <example>For the float values: 
+            range = 0:   RoundUp(ref pow) returns 0.2, pow = 0; 
+            range = 0.9: RoundUp(ref pow) returns 9.5, pow = -1; 
+            range = 1.0: RoundUp(ref pow) returns 1.5, pow = 0; 
+            range = 2.0: RoundUp(ref pow) returns 2.5, pow = 0; 
+            For the integer values: 
+            range = 0:   RoundUp(ref pow) returns 1, pow = 0; 
+            range = 0.9: RoundUp(ref pow) returns 1, pow = 0; 
+            range = 1:   RoundUp(ref pow) returns 2, pow = 0;
+            range = 2:   RoundUp(ref pow) returns 3, pow = 0; 
+            </example>
+        </member>
+        <member name="M:Plot.Marking.Define(System.Int16@)">
+            <summary>Determines the marking of the axes.</summary>
+            <param name="power">Power of max value.</param>
+            <returns>True if this Marking was defined.</returns>
+        </member>
+        <member name="M:Plot.Marking.SetLimit(Plot.Signs,System.Single,System.Single)">
+            <summary>Set axis limits.</summary>
+            <param name="allowLim">The given permissions to set limits.</param>
+            <param name="minVal">The new minimum axis visible value.</param>
+            <param name="maxVal">The new maximum axis visible value.</param>
+            <returns>True if if at least one limit has been reset.</returns>
+        </member>
+        <member name="M:Plot.Marking.DrawGridLines(System.Drawing.Graphics,System.Drawing.Pen,System.Int32)">
+            <summary>Draws grid lines.</summary>
+            <param name="g">Graphics to draw on.</param>
+            <param name="pen">Pen to draw on.</param>
+            <param name="orthLen">Length of orthogonal client area dimension.</param>
+        </member>
+        <member name="P:Plot.Marking.CntDivision">
+            <summary>Gets the number of visible areas between neighboring ticks.</summary>
+        </member>
+        <member name="P:Plot.Marking.PixShift">
+            <summary>Gets the right (upper) number of pixels which are outside of the visible area.</summary>
+        </member>
+        <member name="P:Plot.Marking.Scale">
+            <summary>Gets the number of pixels in one unit of measure.</summary>
+        </member>
+        <member name="P:Plot.Marking.MinVal">
+            <summary>Gets the minimum visible value.</summary>
+        </member>
+        <member name="P:Plot.Marking.MaxVal">
+            <summary>Gets the maximum visible value.</summary>
+        </member>
+        <member name="P:Plot.Marking.IsInteger">
+            <summary>Gets or sets the sign of integer axis values.</summary>
+        </member>
+        <member name="T:Plot.Signs">
+            <summary>Manages two bit values in a byte, which are represented as Booleans.</summary>
+        </member>
+        <member name="F:Plot.Signs.MASK1">
+            <summary>Identifier of first sign.</summary>
+        </member>
+        <member name="F:Plot.Signs.MASK2">
+            <summary>Identifier of second sign.</summary>
+        </member>
+        <member name="P:Plot.Signs.Any">
+            <summary>Gets true if any of sign is set.</summary>
+        </member>
+        <member name="P:Plot.Signs.Both">
+            <summary>Gets or sets value indicating that both signs are set.</summary>
+        </member>
+        <member name="P:Plot.Signs.Sign1">
+            <summary>Gets or sets the first sign.</summary>
+        </member>
+        <member name="P:Plot.Signs.Sign2">
+            <summary>Gets or sets the second sign.</summary>
+        </member>
+        <member name="T:Plot.Modes">
+            <summary>Specifies the plot drawing mode.</summary>
+        </member>
+        <member name="F:Plot.Modes.Graph">
+            <summary>Plot is painted as a function graph (curve).</summary>
+        </member>
+        <member name="F:Plot.Modes.Histogram">
+            <summary>Plot is painted as a histogram (columnar graph).</summary>
+            <remarks>The width of column is equal one x user unit.</remarks>
+        </member>
+        <member name="F:Plot.Modes.BarChart">
+            <summary>Plot is painted as a bar chart (vertical lines graph).</summary>
+            <remarks>The width of column equals <c>Width</c> of drawn <see cref="T:System.Drawing.Pen"/>.</remarks>
+        </member>
+        <member name="T:Plot.Limits">
+            <summary>Specifies ths constant indicated that minimal or maximal user's value should be set automatically.</summary>
+        </member>
+        <member name="F:Plot.Limits.AutoLimit">
+            <summary>The value indicated that minimal or maximal user's value should be set automatically.</summary>
+        </member>
+        <member name="T:Plot.Axis">
+            <summary>Represents common coordinate axis settings and methods.</summary>
+        </member>
+        <member name="F:Plot.Axis.CAPT_Y_GOR_LENGTH">
+            <summary>The maximem length of caption Y string directional horizontally.</summary>
+        </member>
+        <member name="F:Plot.Axis.CAPT_Y_TO_MULTIPL">
+            <summary>The vertical gap between horizontal title or units and multiplier.</summary>
+        </member>
+        <member name="F:Plot.Axis.DEF_VALUE_MARGIN">
+            <summary>The default distance between title and values in pixels. Dublicates Plot.</summary>
+        </member>
+        <member name="F:Plot.Axis.TOP_POWER">
+            <summary>The default value of maximal power at which the multiplier is not displayed.</summary>
+        </member>
+        <member name="F:Plot.Axis.LOW_POWER">
+            <summary>The default value of minimal power at which the multiplier is not displayed.</summary>
+        </member>
+        <member name="F:Plot.Axis.CanvasBorder">
+            <summary>The width of Canvas (plotting area) border.</summary>
+            <remarks>Static, since it is constant for every Plot instance in a build.</remarks>
+        </member>
+        <member name="M:Plot.Axis.Dispose">
+            <summary>Releases static resourses used by Axis.</summary>
+        </member>
+        <member name="M:Plot.Axis.SetBrushFont(System.Drawing.Brush,System.Drawing.Font)">
+            <summary>Sets static brush and font.</summary>
+            <param name="brush">Brush.</param>
+            <param name="font">Font.</param>
+        </member>
+        <member name="M:Plot.Axis.SplitTo(System.Single,System.Int16@)">
+            <summary>Splits float value to the base and power.</summary>
+            <param name="inVal">The float value is splitted.</param>
+            <param name="power">The returned power of number.</param>
+            <returns>The base of round up|down value without power.</returns>
+        </member>
+        <member name="F:Plot.Axis._title">
+            <summary>Axis tile.</summary>
+            <remarks>Inizialised in <see cref="M:Plot.Axis.SetCaption(System.Drawing.Graphics,System.String,System.String)"/>.</remarks>
+        </member>
+        <member name="F:Plot.Axis._unit">
+            <summary>Axis unit of measure.</summary>
+            <remarks>Inizialised in <see cref="M:Plot.Axis.SetCaption(System.Drawing.Graphics,System.String,System.String)"/>.</remarks>
+        </member>
+        <member name="F:Plot.Axis._multipl">
+            <summary>The common multiplier (decimal power factor) image.</summary>
+            <remarks>Inizialised in <see cref="M:Plot.Axis.SetValues(System.Drawing.Graphics)"/>.</remarks>
+        </member>
+        <member name="F:Plot.Axis._marks">
+            <summary>The array of axis marks (values).</summary>
+        </member>
+        <member name="F:Plot.Axis._marking">
+            <summary>Scale, ticks count, resolution.</summary>
+        </member>
+        <member name="F:Plot.Axis._cutoff">
+            <summary>The Cutoff point of visible unit ticks.</summary> 
+            <remarks>Inizialised in SetLimits().</remarks>
+        </member>
+        <member name="F:Plot.Axis._captionWidth">
+            <summary>Y axis title or unit of measure maximal width.</summary> 
+            <remarks>Inizialised in <see cref="M:Plot.Axis.SetValues(System.Drawing.Graphics)"/>. 
+            Keeped for the efficiency.</remarks>
+        </member>
+        <member name="F:Plot.Axis._captionHeight">
+            <summary>Y axis title or unit of measure maximal height.</summary> 
+            <remarks>Inizialised in <see cref="M:Plot.Axis.SetValues(System.Drawing.Graphics)"/>. 
+            Keeped for the efficiency.</remarks>
+        </member>
+        <member name="F:Plot.Axis._maxValueWidth">
+            <summary>Maximum width of axis values string representation.</summary>
+            <remarks>Inizialised in <see cref="M:Plot.Axis.SetValues(System.Drawing.Graphics)"/>.</remarks>
+        </member>
+        <member name="F:Plot.Axis.TopPower">
+            <summary>
+            The minimum value of the exponent in normalized scientific notation, at which the big axis value begins to be displayed in a normalized scientific notation.
+            </summary>
+        </member>
+        <member name="F:Plot.Axis.LowPower">
+            <summary>
+            The maximum value of the exponent in normalized scientific notation, at which the small axis value begins to be displayed in a normalized scientific notation.
+            </summary>
+        </member>
+        <member name="F:Plot.Axis._isVertical">
+            <summary>Keeps true if Y caption is placed vertically; otherwise false.</summary>
+        </member>
+        <member name="F:Plot.Axis._isAligned">
+            <summary>Keeps true if caption is aligned (centered); otherwise false.</summary>
+        </member>
+        <member name="F:Plot.Axis._valueMargin">
+            <summary>The distance between title and values in pixels.</summary>
+        </member>
+        <member name="F:Plot.Axis._index">
+            <summary>_index of instance in array: 0 for X, 1 for Y.</summary>
+        </member>
+        <member name="M:Plot.Axis.SetScale(System.Int32)">
+            <summary>Rounds the canvas axis length up according by number of ticks,
+            and sets scale: the number of pixels in one unit of measure.</summary>
+            <param name="axisLen">The inside axis length.</param>
+            <returns>Axis length, rounded and increased by double canvas border width.</returns>
+        </member>
+        <member name="M:Plot.Axis.#ctor(System.Byte)">
+            <summary>Creates an empty instance of Axis.</summary>
+            <param name="index">_index of instance in array: 0 for X, 1 for Y.</param>
+        </member>
+        <member name="M:Plot.Axis.Clear">
+            <summary>Clears axis settings, except current limits.</summary>
+        </member>
+        <member name="M:Plot.Axis.SetCaption(System.Drawing.Graphics,System.String,System.String)">
+            <summary>Creates axis title and unit of measure.</summary>
+            <param name="g">The Graphics to calculate label's image sizes.</param>
+            <param name="title">Axis title.</param>
+            <param name="unit">Axis unit of measure.</param>
+        </member>
+        <member name="M:Plot.Axis.CheckLimit(System.Single,System.Single)">
+            <summary>Validates axis limit.</summary>
+            <param name="minVal">The minimal visible value.</param>
+            <param name="maxVal">The maximal visible value.</param>
+        </member>
+        <member name="M:Plot.Axis.SetLimits(System.Drawing.Graphics,System.Int32)">
+            <summary>Sets visible limitsvalues.</summary>
+            <param name="g">The Graphics to measure values sizes.</param>
+            <param name="coord">Right X-coordinate or left Y-coordinate of drawing area.</param>
+            <returns>True if min or max value has been changed.</returns>
+        </member>
+        <member name="M:Plot.Axis.SetCaptionSize">
+            <summary>Calculates and sets axis title or unit of measure maximal width and height.</summary>
+        </member>
+        <member name="M:Plot.Axis.GetAlignCoord(System.Int32)">
+            <summary>Returns centered caption coordinate by axis length.</summary>
+            <param name="axisLen">Axis length.</param>
+            <returns>Centered title and units coordinate</returns>
+        </member>
+        <member name="M:Plot.Axis.SetLocations(System.Int32,System.Int32,System.Int32,System.Byte)">
+            <summary>Set caption and values locations.</summary>
+            <param name="x">Actual initial X-coordinate.</param>
+            <param name="y">Actual initial Y-coordinate.</param>
+            <param name="axisLen">The length of proper axis.</param>
+            <param name="titleMargin">The distance between title and border. For Y axis only.</param>
+        </member>
+        <member name="M:Plot.Axis.SetCutoff(System.Int32)">
+            <summary>Calculate _cutoff coordinate.</summary>
+            <param name="coord">Right X-coordinate or left Y-coordinate of drawing area.</param>
+        </member>
+        <member name="M:Plot.Axis.SetValues(System.Drawing.Graphics)">
+            <summary>Sets axis marking, values, multiplier.</summary>
+            <param name="g">The Graphics to create marks and multiplier.</param>
+        </member>
+        <member name="M:Plot.Axis.Draw(System.Drawing.Graphics)">
+            <summary>Draws axis and reset Graphics Transform.</summary>
+            <param name="g">The Graphics to draw on.</param>
+        </member>
+        <member name="P:Plot.Axis.CntDivision">
+            <summary>Gets the number of visible areas between neighboring ticks.</summary>
+        </member>
+        <member name="P:Plot.Axis.IsEmpty">
+            <summary>Returns true if this instance is empty.</summary>
+        </member>
+        <member name="P:Plot.Axis.IsVertical">
+            <summary>Returns true if Y caption is placed vertically.</summary>
+        </member>
+        <member name="P:Plot.Axis.IsAligned">
+            <summary>Sets title aligning.</summary>
+        </member>
+        <member name="P:Plot.Axis.IsRangeSet">
+            <summary>Gets a value indicating whether the range is set.</summary>
+        </member>
+        <member name="P:Plot.Axis.CaptionWidth">
+            <summary>Gets Y axis title or unit of measure maximal width.</summary>
+        </member>
+        <member name="P:Plot.Axis.CaptionHeight">
+            <summary>Gets X axis title or unit of measure maximal height.</summary>
+        </member>
+        <member name="P:Plot.Axis.MaxValue">
+            <summary>Gets the actual maximum visible value.</summary>
+        </member>
+        <member name="P:Plot.Axis.MinValue">
+            <summary>Gets the actual minimum visible value.</summary>
+        </member>
+        <member name="P:Plot.Axis.ValueMargin">
+            <summary>Gets or sets the distance between title and values in pixels.</summary>
+        </member>
+        <member name="P:Plot.Axis.IsInteger">
+            <summary>Gets or sets the sign of integer axis values.</summary>
+        </member>
+        <member name="T:Plot.Axis.DrawMarkDelegate">
+            <summary>Delegate of mark drawing.</summary>
+            <param name="g">The Graphics to draw on.</param>
+        </member>
+        <member name="T:Plot.Axis.Mark">
+            <summary>Basic class for asix marks: titles, units of measure, power images, units.</summary>
+        </member>
+        <member name="M:Plot.Axis.Mark.MeasureStrWidth(System.Drawing.Graphics,System.String)">
+            <summary>Gets the width of specified string.</summary>
+            <param name="g">Graphics used to paint.</param>
+            <param name="str">String to measure.</param>
+            <returns>The width of specified string.</returns>
+        </member>
+        <member name="M:Plot.Axis.Mark.DrawEmptyMark(System.Drawing.Graphics)">
+            <summary>Draws nothing.</summary>
+            <param name="g">The Graphics to draw on.</param>
+            <remarks>Calls by delegate.</remarks>
+        </member>
+        <member name="F:Plot.Axis.Mark._Empty">
+            <summary>Keeps the empty Mark.</summary>
+        </member>
+        <member name="M:Plot.Axis.Mark.GetInstance(System.Drawing.Graphics,System.String)">
+            <summary>Returns an instance of axis mark.</summary>
+            <param name="g">Graphics to measure mark image.</param>
+            <param name="val">Value of mark (unit).</param>
+        </member>
+        <member name="F:Plot.Axis.Mark._drawMarkDlg">
+            <summary>Delegate of method drawing axis unit of measure. 
+            Is inizialised on constructor.</summary>
+        </member>
+        <member name="F:Plot.Axis.Mark._value">
+            <summary>The string represented axis mark.</summary>
+        </member>
+        <member name="F:Plot.Axis.Mark._width">
+            <summary>The width of mark image.</summary>
+            <remarks>Separate for efficiency, since used for reading</remarks>
+        </member>
+        <member name="F:Plot.Axis.Mark._location">
+            <summary>The coordinates of mark image.</summary>
+        </member>
+        <member name="M:Plot.Axis.Mark.SetValue(System.Drawing.Graphics,System.String)">
+            <summary>Gets the value of axis mark.</summary>
+        </member>
+        <member name="M:Plot.Axis.Mark.#ctor(System.Drawing.Graphics,System.String)">
+            <summary>Creates an instance of axis mark with value.</summary>
+            <param name="g">Graphics to measure mark image.</param>
+            <param name="val">Value of mark (unit).</param>
+        </member>
+        <member name="M:Plot.Axis.Mark.SetLocation(System.Int32,System.Int32)">
+            <summary>Sets this instance location, if it is not empty</summary>
+            <param name="x">Right X-coordinate of a new location</param>
+            <param name="y">Left Y-coordinate of a new location</param>
+        </member>
+        <member name="M:Plot.Axis.Mark.DrawMark(System.Drawing.Graphics)">
+            <summary>Draws mark (unit).</summary>
+            <remarks>Called via delegate.</remarks>
+        </member>
+        <member name="M:Plot.Axis.Mark.Draw(System.Drawing.Graphics)">
+            <summary>Draws mark (unit).</summary>
+            <param name="g">Graphics to draw on.</param>
+        </member>
+        <member name="P:Plot.Axis.Mark.Empty">
+            <summary>Represents the empty Mark. This Filed is read-only.</summary>
+        </member>
+        <member name="P:Plot.Axis.Mark.Value">
+            <summary>Gets the value of axis mark.</summary>
+        </member>
+        <member name="P:Plot.Axis.Mark.DrawPermit">
+            <summary>Sets permission for axis mark drawing.</summary>
+        </member>
+        <member name="P:Plot.Axis.Mark.Width">
+            <summary>Gets the width of axis mark.</summary>
+        </member>
+        <member name="P:Plot.Axis.Mark.Height">
+            <summary>Gets the height of axis mark.</summary>
+        </member>
+        <member name="P:Plot.Axis.Mark.IsEmpty">
+            <summary>Returns true if instance is not initialized.</summary>
+        </member>
+        <member name="T:Plot.Axis.MarkPower">
+            <summary>Represents a power value.</summary>
+        </member>
+        <member name="F:Plot.Axis.MarkPower.SPLIT_CHAR">
+            <summary>The delimiter symbol.</summary>
+        </member>
+        <member name="F:Plot.Axis.MarkPower._Empty">
+            <summary>Keeps the empty MarkPower.</summary>
+        </member>
+        <member name="M:Plot.Axis.MarkPower.GetInstance(System.Drawing.Graphics,System.String)">
+            <summary>Returns an instance of axis MarkPower.</summary>
+            <param name="g">Graphics to measure mark image.</param>
+            <param name="val">Value of mark (unit).</param>
+        </member>
+        <member name="M:Plot.Axis.MarkPower.Dispose">
+            <summary>Releases static resourses used by MarkPower.</summary>
+        </member>
+        <member name="F:Plot.Axis.MarkPower._height">
+            <summary>The height of mark image.</summary>
+        </member>
+        <member name="F:Plot.Axis.MarkPower._addedHeight">
+            <summary>The height addition of this instance: 0 if no power.</summary>
+        </member>
+        <member name="F:Plot.Axis.MarkPower._power">
+            <summary>The power of mark.</summary>
+        </member>
+        <member name="M:Plot.Axis.MarkPower.Init(System.Drawing.Graphics,System.String,System.String)">
+            <summary>Initializes a MarkPower instance.</summary>
+            <param name="g">The Graphics to measure height.</param>
+            <param name="baseNumb">Basic power number.</param>
+            <param name="power">Power value.</param>
+        </member>
+        <member name="M:Plot.Axis.MarkPower.#ctor">
+            <summary>Creates an empty MarkPower object with zero size.</summary>
+        </member>
+        <member name="M:Plot.Axis.MarkPower.#ctor(System.Drawing.Graphics,System.String)">
+            <summary>Creates a MarkPower object.</summary>
+            <param name="g">The Graphics to measure height.</param>
+            <param name="inVal">String represented input power naumer.</param>
+        </member>
+        <member name="M:Plot.Axis.MarkPower.DrawMarkPower(System.Drawing.Graphics)">
+            <summary>Draws the current MarkPower object.</summary>
+            <param name="g">The Graphics to draw on.</param>
+        </member>
+        <member name="P:Plot.Axis.MarkPower.Empty">
+            <summary>Represents the empty MarkPower. This Filed is read-only.</summary>
+        </member>
+        <member name="P:Plot.Axis.MarkPower.Font">
+            <summary>Sets type font.</summary>
+        </member>
+        <member name="P:Plot.Axis.MarkPower.Height">
+            <summary>Gets the height of axis string image.</summary>
+        </member>
+        <member name="P:Plot.Axis.MarkPower.AddedHeight">
+            <summary>Gets the height addition of this instance: 0 if no power.</summary>
+        </member>
+        <member name="T:Plot.Axis.MarkPower.Power">
+            <summary>Represents power image.</summary>
+        </member>
+        <member name="F:Plot.Axis.MarkPower.Power.HEIGHT_FACTOR">
+            <summary>The ratio height of Power font / height of basic font.</summary>
+        </member>
+        <member name="F:Plot.Axis.MarkPower.Power.ADD_FONT_FACTOR">
+            <summary>The decreasing coefficient of power font size relative to the basic font.</summary>
+        </member>
+        <member name="F:Plot.Axis.MarkPower.Power._PowerFont">
+            <summary>Power image font.</summary>
+        </member>
+        <member name="F:Plot.Axis.MarkPower.Power._AddedHeight">
+            <summary>The addition to the height of the PowerImage.</summary>
+        </member>
+        <member name="F:Plot.Axis.MarkPower.Power._ShiftX">
+            <summary>Left shift from the right border to locate X coordinate of power image.</summary>
+        </member>
+        <member name="M:Plot.Axis.MarkPower.Power.Dispose">
+            <summary>Releases static resourses used by Power.</summary>
+        </member>
+        <member name="F:Plot.Axis.MarkPower.Power._value">
+            <summary>The string represented axis mark.</summary>
+        </member>
+        <member name="M:Plot.Axis.MarkPower.Power.GetWidth(System.Drawing.Graphics)">
+            <summary>Gets the initial width of the power image.</summary>
+            <param name="g">The Graphics to measure the width.</param>
+            <returns>The initial width of the power image</returns>
+        </member>
+        <member name="M:Plot.Axis.MarkPower.Power.Draw(System.Drawing.Graphics,System.Int32,System.Int32)">
+            <summary>Draws the power.</summary>
+            <param name="g">The Graphics to draw on.</param>
+            <param name="x">X right coordinate of the basic number.</param>
+            <param name="y">Y upper coordinate of the basic number.</param>
+        </member>
+        <member name="P:Plot.Axis.MarkPower.Power.AddedHeight">
+            <summary>Gets the hight, added by power image.</summary>
+        </member>
+        <member name="P:Plot.Axis.MarkPower.Power.ShiftX">
+            <summary>Gets shift from the right border to locate X coordinate of power image.</summary>
+        </member>
+        <member name="P:Plot.Axis.MarkPower.Power.Font">
+            <summary>Sets type font to paint power image.</summary>
+        </member>
+        <member name="T:Plot.Axis.DecMarkPower">
+            <summary>Represents a decimal power value.</summary>
+        </member>
+        <member name="F:Plot.Axis.DecMarkPower.DECIMAL_BASE">
+            <summary>The string represented the decimal base of power.</summary>
+        </member>
+        <member name="F:Plot.Axis.DecMarkPower._SignPen">
+            <summary>The pen used to draw multiplication sign.</summary>
+        </member>
+        <member name="F:Plot.Axis.DecMarkPower._Empty">
+            <summary>Keeps the empty DecMarkPower.</summary>
+        </member>
+        <member name="M:Plot.Axis.DecMarkPower.GetInstance(System.Drawing.Graphics,System.Single,System.Int16@,System.Int16,System.Int16)">
+            <summary>
+            Returns a new DecMarkPower instance if analysed value is out of decimal multiplier powers range;
+            otherwise an Empty instance.
+            </summary>
+            <param name="g">The Graphics to measure image size.</param>
+            <param name="val">The value to analyse.</param>
+            <param name="power">The exponent in normalized scientific notation of analysed value.</param>
+            <param name="topPower">
+            The minimum value of the exponent in normalized scientific notation, at which the big value begins to be displayed in a normalized scientific notation.
+            </param>
+            <param name="lowPower">
+            The maximum value of the exponent in normalized scientific notation, at which the small value begins to be displayed in a normalized scientific notation.
+            </param>
+            <remarks>Method returns in <paramref name="power"/> an actual decimal exponent of given value.</remarks>
+        </member>
+        <member name="M:Plot.Axis.DecMarkPower.Dispose">
+            <summary>Releases static resourses used by DecMarkPower.</summary>
+        </member>
+        <member name="M:Plot.Axis.DecMarkPower.#ctor">
+            <summary>Creates an empty DecMarkPower object with zero size.</summary>
+        </member>
+        <member name="M:Plot.Axis.DecMarkPower.#ctor(System.Drawing.Graphics,System.Int16)">
+            <summary>Creates a new DecMarkPower instance from the value of power.</summary>
+            <param name="g">The Graphics to calculate image size.</param>
+            <param name="power">The value of power.</param>
+        </member>
+        <member name="M:Plot.Axis.DecMarkPower.Draw(System.Drawing.Graphics)">
+            <summary>Draws the current DecPowerImage object.</summary>
+            <param name="g">The Graphics to draw on.</param>
+        </member>
+        <member name="P:Plot.Axis.DecMarkPower.Empty">
+            <summary>Represents the empty DecMarkPower. This Filed is read-only.</summary>
+        </member>
+        <member name="P:Plot.Axis.DecMarkPower.Font">
+            <summary>Sets type font.</summary>
+        </member>
+    </members>
+</doc>
