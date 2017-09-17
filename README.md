@@ -1,4 +1,4 @@
-# FTT  ![fig](FTT_solution/FTT/FTT.ico)
+# FTT    ![fig](FTT_solution/FTT/FTT.ico)
 Easy Windows application for searching for putative regulatory regions in DNA.
 
 ***Idea description.***
