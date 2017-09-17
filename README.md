@@ -6,7 +6,7 @@ Idea description.
 The idea and algorithm have been developed by [Irina Abnizova](https://www.linkedin.com/in/irina-abnizova-08309410/)
 
 ### Launching
-Portable (does not need to be installed). Download from [here](releases), unzip, go to the *FTT* folder and and click on the file **FTT.exe**
+Portable (does not need to be installed). Download from [here](https://github.com/fnaumenko/FTT/releases/latest), unzip, go to the *FTT* folder and and click on the file **FTT.exe**
 
 ### Documentation
 A complete description of the algorithm and the user interface is compiled into a file [FTT_help.chm](FTT_solution/Help/FTT_help.chm), located in the folder *Help*.
